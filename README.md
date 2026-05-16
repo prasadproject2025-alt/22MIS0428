@@ -1,27 +1,28 @@
+npm run dev
 # 22MIS0428
 
-This repository contains a full-stack notification evaluation project. Top-level structure:
+This project contains three folders:
 
-- `logging_middleware/` - shared logging utility and request middleware
-- `notification_app_be/` - backend API service
-- `notification_app_fe/` - React frontend application
-- `notification_system_design.md` - system design and architecture documentation
+- `logging_middleware/` — shared logging code
+- `notification_app_be/` — backend API (Express + TypeScript)
+- `notification_app_fe/` — frontend app (React + Vite + TypeScript)
 
-## Prerequisites
+What you need to run this project (basic):
 
-- Node.js (v18+ recommended)
+- Node.js (version 18 or later)
 - npm
+- A terminal (PowerShell or similar on Windows)
 
-## Quick start (clone)
+Simple steps to run locally:
+
+1. Clone the repository and open a terminal in the project folder:
 
 ```bash
 git clone https://github.com/prasadproject2025-alt/22MIS0428.git
 cd 22MIS0428
 ```
 
-## Install, build and run (per package)
-
-1) Install and build the shared logging middleware (required before building backend):
+2. Prepare the shared logger (build it first):
 
 ```powershell
 cd logging_middleware
@@ -30,61 +31,38 @@ npm run build
 cd ..
 ```
 
-2) Install and build the backend, then start it (default port 3001):
+3. Prepare and start the backend:
 
 ```powershell
 cd notification_app_be
 npm install
 npm run build
 
-# optional: set API token used by the protected route (defaults to 'test-token')
+# (optional) set API token used by the backend; default in code is 'test-token'
 $env:API_TOKEN = 'test-token'
 
-# start backend (foreground)
 npm run start
 ```
 
-3) Install frontend deps and start the Vite dev server (port 3000):
+4. Prepare and start the frontend:
 
 ```powershell
 cd notification_app_fe
 npm install
 
-# optional: set frontend token used by fetch (defaults to 'test-token')
+# (optional) set token for frontend requests (defaults to 'test-token')
 $env:VITE_API_TOKEN = 'test-token'
 
 npm run dev
 ```
 
-Open the frontend at: http://localhost:3000
+Open http://localhost:3000 in your browser to view the app.
 
-## Environment variables
+Notes:
 
-- `API_TOKEN` — token required by backend `GET /evaluation-service/notifications`. Defaults to `test-token` in code.
-- `VITE_API_TOKEN` — optional value the frontend will send as `Authorization: Bearer <token>` (frontend also falls back to `test-token`).
-- `LOGGING_API_TOKEN` — set to enable sending logs to the remote logging API (default remote URL is `http://4.224.186.213/evaluation-service/logs`).
+- The backend route `GET /evaluation-service/notifications` requires an `Authorization: Bearer <token>` header. By default the token used in this project is `test-token`.
+- The backend uses a small hard-coded dataset for notifications (see `notification_app_be/src/server.ts`). Replace with a real database for production.
+- If the backend fails with module resolution errors, make sure `logging_middleware` was built so `dist/logger.js` exists.
 
-## Quick verification (after servers are running)
-
-```powershell
-# backend (protected)
-curl.exe -v -H "Authorization: Bearer test-token" "http://localhost:3001/evaluation-service/notifications?limit=2"
-
-# frontend (vite HTML)
-curl.exe -s -D - "http://localhost:3000/" | Select-String -Pattern "<title>"
-```
-
-## Troubleshooting
-
-- If you see `ERR_MODULE_NOT_FOUND` when starting the backend, ensure `logging_middleware` was built and `dist/logger.js` exists (step 1).
-- If frontend fetch returns `401`, confirm `VITE_API_TOKEN` or `test-token` matches backend `API_TOKEN`.
-- If ports 3000 or 3001 are occupied, change backend `PORT` or Vite `--port` in `notification_app_fe/package.json` scripts.
-- If npm install fails on Windows due to file locks, delete `node_modules` and retry, or restart your terminal/editor.
-
-## Notes
-
-- The backend currently uses an in-memory hardcoded dataset for notifications (see `notification_app_be/src/server.ts`). For production, replace with a persistent DB and migration scripts.
-- Logging helper is implemented in `logging_middleware` and follows the `Log(stack, level, package, message)` contract.
-
-If you want, I can add a one-line script to the repository root to start both servers locally (using `Start-Process`) — tell me if you'd like that.
+If you want, I can add a short script to start both services together. Tell me if you'd like that.
 
