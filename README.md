@@ -23,5 +23,6 @@ This repository contains a full-stack notification evaluation project with the f
 ## Notes
 
 - The backend uses shared logging middleware and emits structured logs.
+- The backend route is protected by `Authorization: Bearer <token>` on `GET /evaluation-service/notifications`.
 - The frontend is built with React, TypeScript, Vite, and Material UI.
-- `notification_system_design.md` documents architecture and logging design.
+- `notification_system_design.md` documents architecture, API design, and scaling decisions.
