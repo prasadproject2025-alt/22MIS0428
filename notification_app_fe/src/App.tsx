@@ -63,7 +63,13 @@ export default function App() {
       Log('frontend', 'debug', 'api', `fetch notifications page=${page} limit=${limit} type=${filterType}`);
 
       try {
-        const response = await fetch(url.toString());
+        // include Authorization header for protected backend
+        const apiToken = (import.meta as any).env?.VITE_API_TOKEN || 'test-token';
+        const response = await fetch(url.toString(), {
+          headers: {
+            Authorization: `Bearer ${apiToken}`,
+          },
+        });
         if (!response.ok) {
           throw new Error(`Fetch failed (${response.status})`);
         }
