@@ -70,6 +70,9 @@ npm run dev
 
 Open the frontend at: http://localhost:3000
 
+<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/3d13b593-a0ee-43e3-a2ab-b98314bc15d0" />
+
+
 ## Environment variables
 
 - `API_TOKEN` — token required by backend `GET /evaluation-service/notifications`. Defaults to `test-token` in code.
