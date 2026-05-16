@@ -20,6 +20,7 @@ import {
   Toolbar,
   Typography,
 } from '@mui/material';
+import { Log } from './logger';
 
 interface NotificationRecord {
   ID: string;
@@ -59,6 +60,8 @@ export default function App() {
         url.searchParams.set('notification_type', filterType);
       }
 
+      Log('frontend', 'debug', 'api', `fetch notifications page=${page} limit=${limit} type=${filterType}`);
+
       try {
         const response = await fetch(url.toString());
         if (!response.ok) {
@@ -66,8 +69,11 @@ export default function App() {
         }
         const data = await response.json();
         setNotifications(data.notifications || []);
+        Log('frontend', 'info', 'api', `received ${data.notifications?.length ?? 0} notifications`);
       } catch (err) {
-        setError((err as Error).message);
+        const message = (err as Error).message;
+        setError(message);
+        Log('frontend', 'error', 'api', `notification fetch failed: ${message}`);
       } finally {
         setLoading(false);
       }
