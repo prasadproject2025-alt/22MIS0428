@@ -70,7 +70,12 @@ npm run dev
 
 Open the frontend at: http://localhost:3000
 
-<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/3d13b593-a0ee-43e3-a2ab-b98314bc15d0" />
+
+<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/2185c468-ecc9-4bcb-9b9d-99d121866940" />
+<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/6785554b-a853-4e56-99c3-4cd5609819fd" />
+<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/d022c497-cf0b-4e42-888d-bc55497282d8" />
+
+
 
 
 ## Environment variables
